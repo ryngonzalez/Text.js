@@ -9,8 +9,8 @@ Usage:
 textarea = document.getElementById('#myTextarea');
 var cursor = new Cursor(textarea);
 
-var position = cursor.position.get() // Returns integer index
-cursor.position.set(25) // Sets position to index
+var position = cursor.position // Returns integer index
+cursor.position = 25 // Sets position to index
 ```
 
 ###
@@ -19,12 +19,13 @@ class @Cursor
   lastPosition = null
   constructor: (@element) ->
 
-  position:
-    get: ->
-      lastPosition = @element.selectionEnd
+  Object.defineProperties @prototype,
+    position:
+      get: ->
+        lastPosition = @element.selectionEnd
 
-    set: (position) ->
-      @element.setSelectionRange position, position
+      set: (position) ->
+        @element.setSelectionRange position, position
 
 ###
 
@@ -75,16 +76,16 @@ class @CurrentWord
     @cursor = new Cursor @element
 
   parts: (position) ->
-    text = @element.val()
-    cursor = position or @cursor.position.get()
+    text = @element.value
+    cursor = position or @cursor.position
 
     # regexp.exec returns an array or null
     before = space.before.exec(text.slice(0, cursor))
     after = space.after.exec(text.slice(cursor))
 
     return {
-      before: before?.length then before[0] else ''
-      after: after?.length then after[0] else ''
+      before: if before?.length then before[0] else ''
+      after: if after?.length then after[0] else ''
     }
 
   get: ->
@@ -92,7 +93,7 @@ class @CurrentWord
     before + after
 
   indices: (position) ->
-    cursor = position or @cursor.position.get()
+    cursor = position or @cursor.position
 
     {before, after} = @parts(cursor)
 
@@ -108,13 +109,13 @@ class @CurrentWord
     }
 
   replace: (text) ->
-    currentText = @element.val()
-    indices = @indices @cursor.position.get()
+    currentText = @element.value
+    indices = @indices @cursor.position
 
     {before, after} = split currentText, indices.start, indices.end
 
-    @element.val before + text + after
+    @element.value = before + text + after
 
     newPosition = before.length + text.length
-    @cursor.position.set newPosition
+    @cursor.position = newPosition
     return newPosition
