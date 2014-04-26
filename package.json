@@ -1,0 +1,23 @@
+{
+  "name": "text.js",
+  "version": "0.0.1",
+  "description": "Utilities for editing and examining the text of an input.",
+  "main": "src/current-word.js",
+  "directories": {
+    "test": "test",
+    "src": "src",
+    "dist": "dist"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Gonzalez & Matthew Brandly",
+  "license": "MIT",
+  "repository": "https://github.com/Fetchnotes/Text.js",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "gulp": "^3.6.2",
+    "gulp-coffee": "^1.4.2",
+    "gulp-util": "^2.2.14"
+  }
+}
