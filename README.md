@@ -13,7 +13,7 @@ provides easy interfaces to some of the most common things you need when managin
 ```javascript
 
 textarea = document.getElementById('#myTextarea');
-var cursor = new Cursor(textarea);
+var cursor = new Text.Cursor(textarea);
 
 var position = cursor.position // Returns integer index
 cursor.position = 25 // Sets position to index
@@ -32,7 +32,7 @@ Given a textarea with the following text and cursor (represented by the pipe cha
 ```javascript
 
 textarea = document.getElementById('#myTextarea');
-var current = new CurrentWord(textarea);
+var current = new Text.CurrentWord(textarea);
 
 // Returns the string "guys"
 current.get()
