@@ -15,7 +15,7 @@ cursor.position = 25 // Sets position to index
 
 ###
 
-class @Cursor
+class Cursor
   lastPosition = null
   constructor: (@element) ->
 
@@ -66,7 +66,7 @@ current.replace('someString')
 
 ###
 
-class @CurrentWord
+class CurrentWord
   space =
     before: /\S+$/
     after: /^\S+/
@@ -119,3 +119,12 @@ class @CurrentWord
     newPosition = before.length + text.length
     @cursor.position = newPosition
     return newPosition
+
+# Export things.
+
+Text = { Cursor, CurrentWord }
+
+if module?.exports
+  module.exports = Text
+else
+  @Text = Text

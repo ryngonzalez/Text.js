@@ -16,7 +16,9 @@ cursor.position = 25 // Sets position to index
  */
 
 (function() {
-  this.Cursor = (function() {
+  var CurrentWord, Cursor, Text;
+
+  Cursor = (function() {
     var lastPosition;
 
     lastPosition = null;
@@ -78,7 +80,7 @@ cursor.position = 25 // Sets position to index
   ```
    */
 
-  this.CurrentWord = (function() {
+  CurrentWord = (function() {
     var space, split;
 
     space = {
@@ -141,5 +143,16 @@ cursor.position = 25 // Sets position to index
     return CurrentWord;
 
   })();
+
+  Text = {
+    Cursor: Cursor,
+    CurrentWord: CurrentWord
+  };
+
+  if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
+    module.exports = Text;
+  } else {
+    this.Text = Text;
+  }
 
 }).call(this);
