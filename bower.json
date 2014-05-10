@@ -1,0 +1,23 @@
+{
+  "name": "Text.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Fetchnotes/Text.js",
+  "authors": [
+    "Ryan Gonzalez <ryan@fetchnotes.com>",
+    "Matthew Brandly <matt@fetchnotes.com>"
+  ],
+  "description": "Utilities for editing and examining the text of an input.",
+  "main": "dist/current-word.js",
+  "keywords": [
+    "examine",
+    "text",
+    "input",
+    "textarea"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}
