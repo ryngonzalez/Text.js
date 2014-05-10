@@ -7,7 +7,7 @@
     "Matthew Brandly <matt@fetchnotes.com>"
   ],
   "description": "Utilities for editing and examining the text of an input.",
-  "main": "dist/current-word.js",
+  "main": "dist/text.js",
   "keywords": [
     "examine",
     "text",
