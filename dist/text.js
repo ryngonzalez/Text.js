@@ -16,7 +16,7 @@ cursor.position = 25 // Sets position to index
  */
 
 (function() {
-  var CurrentWord, Cursor, Text;
+  var CurrentWord, Cursor, Resize, Text, cssAttributes;
 
   Cursor = (function() {
     var lastPosition;
@@ -144,9 +144,98 @@ cursor.position = 25 // Sets position to index
 
   })();
 
+  cssAttributes = ['overflowY', 'overflowX', 'height', 'width', 'maxHeight', 'minHeight', 'maxWidth', 'minWidth', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'marginTop', 'marginRight', 'marginLeft', 'marginBottom', 'fontFamily', 'fontSize', 'borderStyle', 'borderWidth', 'outline', 'wordWrap', 'lineHeight', 'textAlign'];
+
+  Resize = (function() {
+    var UUID, cloneStyle, getStyle;
+
+    UUID = 0;
+
+    getStyle = function(element) {
+      return element.currentStyle || document.defaultView.getComputedStyle(element, "");
+    };
+
+    cloneStyle = function(element) {
+      var attribute, css, elementStyle, _i, _len;
+      css = {
+        visibility: 'hidden',
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        'pointer-events': 'none'
+      };
+      elementStyle = getStyle(element);
+      for (_i = 0, _len = cssAttributes.length; _i < _len; _i++) {
+        attribute = cssAttributes[_i];
+        css[attribute] = elementStyle[attribute];
+      }
+      return css;
+    };
+
+    function Resize(element) {
+      this.element = element;
+      this.UUID = (UUID += 1);
+    }
+
+    Resize.prototype.clone = function() {
+      var clone, key, name, style, value;
+      name = "_resizer-clone-" + this.UUID;
+      clone = this.copy || document.getElementById(name);
+      if (clone == null) {
+        clone = document.createElement('textarea');
+        clone.id = name;
+        document.body.appendChild(clone);
+        style = cloneStyle(this.element);
+        for (key in style) {
+          value = style[key];
+          clone.style[key] = value;
+        }
+      }
+      return this.copy = clone;
+    };
+
+    Resize.prototype.update = function() {
+      this.clone();
+      return this.copy.value = this.element.value;
+    };
+
+    Resize.prototype.resize = function() {
+      this.update();
+      this.copy.style.height = 'auto';
+      return setTimeout((function(_this) {
+        return function() {
+          return _this.element.style.height = "" + _this.copy.scrollHeight + "px";
+        };
+      })(this), 0);
+    };
+
+    Resize.prototype.on = function(event) {
+      return this.element.addEventListener(event, (function(_this) {
+        return function() {
+          return _this.resize();
+        };
+      })(this));
+    };
+
+    Resize.prototype.unbind = function(event) {
+      this.element.removeEventListener(event, (function(_this) {
+        return function() {
+          return _this.resize();
+        };
+      })(this));
+      this.copy.remove();
+      delete this.copy;
+      return delete this.element;
+    };
+
+    return Resize;
+
+  })();
+
   Text = {
     Cursor: Cursor,
-    CurrentWord: CurrentWord
+    CurrentWord: CurrentWord,
+    Resize: Resize
   };
 
   if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
