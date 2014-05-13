@@ -4,6 +4,10 @@ A collection of utilities for manipulating and editing text, with no dependencie
 provides easy interfaces to some of the most common things you need when managing textareas
 (and other text inputs). Everything is separated into modules as needed.
 
+```shell
+$ bower install --save Text.js
+```
+
 ## Current Modules
 
 ###1. `Cursor`
