@@ -39,20 +39,46 @@ textarea = document.getElementById('#myTextarea');
 var current = new Text.CurrentWord(textarea);
 
 // Returns the string "guys"
-current.get()
+current.get();
 
 // Returns an object with the signature {before: string, after: string}
 // => {before: 'guy', after: 's'}
-current.parts()
+current.parts();
 
 // Returns the indices of the current word
 // => {start: 10, end: 14}
-current.indices()
+current.indices();
 
 // Replaces the current word, and places
 // the current cursor position at the end of the
 // current word. Returns that new position
-current.replace('someString')
-
+current.replace('someString');
 ```
+
+### 3. `Resizer`
+
+#### Usage:
+
+Given a textarea, automatically resize it to fit the content.
+
+```javascript
+
+textarea = document.getElementById('#myTextarea');
+var resizer = new Text.Resize(textarea);
+
+// Resize for a given event on the textarea
+// Ex. input: when the content of the textarea is changed
+resizer.on('input');
+
+// Manually force a resize
+resizer.resize();
+
+// Unbind a specific event from causing a resize
+resizer.unbind('input');
+
+// Unbind all events, delete the clone,
+// and remove references to the elements.
+resizer.destroy();
+```
+
 
